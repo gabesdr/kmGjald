@@ -70,7 +70,7 @@
          </GridPane.margin>
       </Label>
       <TextField fx:id="lokKmInput" prefHeight="40.0" text="0" GridPane.columnIndex="1" GridPane.rowIndex="2" />
-      <TextField fx:id="gjaldPerKmOutput" alignment="CENTER_RIGHT" prefHeight="40.0" prefWidth="147.0" text="0.00" GridPane.columnIndex="3">
+      <TextField fx:id="gjaldPerKmOutput" alignment="CENTER_RIGHT" prefHeight="40.0" prefWidth="147.0" text="0" GridPane.columnIndex="3">
          <GridPane.margin>
             <Insets right="20.0" />
          </GridPane.margin>
