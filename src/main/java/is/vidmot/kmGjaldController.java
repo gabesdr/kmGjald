@@ -49,12 +49,28 @@ public class kmGjaldController {
     @FXML
     private Button Hreinsa;
 
+    /** ... 
+     * Initalizer method sem keyrist við hleðslu á view.
+     * Initilazerar output sem non-editable.
+    */
+    @FXML
+    public void initialize() {
+        manKmOutput.setEditable(false);
+        fjoldiManadaOutput.setEditable(false);
+        heildKmOutput.setEditable(false);
+        gjaldPerKmOutput.setEditable(false);
+
+        heildKmOutput.setFocusTraversable(false);
+        fjoldiManadaOutput.setFocusTraversable(false);
+        manKmOutput.setFocusTraversable(false);
+        gjaldPerKmOutput.setFocusTraversable(false);
+    }
 
     //INTERNAL LOGIC
     private int heildKm = 0;
     private int heildGjald = 0;
     private int fjoldiManada = 0;
-    private static final int KM_PER_MONTH = 1000; 
+    private static final int KM_PER_MONTH = 1;
 
     /** ... 
      * 
@@ -87,7 +103,7 @@ public class kmGjaldController {
 
             heildKm += manKm;
             heildGjald += manGjald;
-            fjoldiManada = (heildKm / KM_PER_MONTH) + 1; // Reiknir fjölda mánaða per 1000km.
+            fjoldiManada = (heildKm / KM_PER_MONTH) + 1; // Reiknir fjölda mánaða per 1km skv Island.is.
 
             manKmOutput.setText(String.valueOf(manKm));
             fjoldiManadaOutput.setText(String.valueOf(fjoldiManada));
