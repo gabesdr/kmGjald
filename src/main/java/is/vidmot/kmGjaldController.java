@@ -59,11 +59,6 @@ public class kmGjaldController {
         fjoldiManadaOutput.setEditable(false);
         heildKmOutput.setEditable(false);
         gjaldPerKmOutput.setEditable(false);
-
-        heildKmOutput.setFocusTraversable(false);
-        fjoldiManadaOutput.setFocusTraversable(false);
-        manKmOutput.setFocusTraversable(false);
-        gjaldPerKmOutput.setFocusTraversable(false);
     }
 
     //INTERNAL LOGIC
