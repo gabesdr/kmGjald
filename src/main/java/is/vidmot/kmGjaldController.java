@@ -3,7 +3,7 @@ package is.vidmot;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.control.Button;
-import javafx.scene.control.Textfield;
+import javafx.scene.control.TextField;
 
 public class kmGjaldController {
 
@@ -37,7 +37,7 @@ public class kmGjaldController {
     private TextField upphafsKmInput;
 
     @FXML
-    private TextField loksKmInput;
+    private TextField lokKmInput;
 
     @FXML
     private TextField manKmOutput;
@@ -45,4 +45,32 @@ public class kmGjaldController {
     @FXML 
     private TextField fjoldiManadaOutput;
 
+    @FXML
+    private TextField heildKmOutput;
+
+    @FXML
+    private TextField gjaldPerKm;
+
+    //FXML Buttons
+    @FXML
+    private Button SkraBtn;
+
+    @FXML
+    private Button Hreinsa;
+
+    @FXML
+    private void OnSkra() {
+        // TODO IMPLEMENT FUNCTIONALITY RECORDING KM STATUS
+    }
+
+    @FXML 
+    private void OnHreinsa() {
+        flokkurInput.clear();
+        upphafsKmInput.clear();
+        lokKmInput.clear();
+        manKmOutput.clear();
+        heildKmOutput.clear();
+        fjoldiManadaOutput.clear();
+        gjaldPerKm.clear();
+    }
 }
