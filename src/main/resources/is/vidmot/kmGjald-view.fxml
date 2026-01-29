@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.RowConstraints?>
+
+<GridPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/25" xmlns:fx="http://javafx.com/fxml/1" fx:controller="is.vidmot.kmGjaldController">
+  <columnConstraints>
+    <ColumnConstraints hgrow="SOMETIMES" maxWidth="436.80003662109374" minWidth="10.0" prefWidth="307.9999633789063" />
+    <ColumnConstraints hgrow="SOMETIMES" maxWidth="346.20001220703125" minWidth="10.0" prefWidth="292.0000366210937" />
+      <ColumnConstraints hgrow="SOMETIMES" maxWidth="346.20001220703125" minWidth="10.0" prefWidth="292.0000366210937" />
+      <ColumnConstraints hgrow="SOMETIMES" maxWidth="346.20001220703125" minWidth="10.0" prefWidth="292.0000366210937" />
+  </columnConstraints>
+  <rowConstraints>
+    <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+    <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+      <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+    <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+      <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+      <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+      <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+  </rowConstraints>
+   <children>
+      <Label fx:id="Flokkur" text="Flokkur">
+         <GridPane.margin>
+            <Insets left="20.0" />
+         </GridPane.margin></Label>
+      <Label fx:id="Upphaf" text="Upphafs km Staða" GridPane.rowIndex="1">
+         <GridPane.margin>
+            <Insets left="20.0" />
+         </GridPane.margin></Label>
+      <Label fx:id="manKm" text="Mán. km og gjald" GridPane.rowIndex="3">
+         <GridPane.margin>
+            <Insets left="20.0" />
+         </GridPane.margin></Label>
+      <Label fx:id="heildKm" text="Heild km og gjald" GridPane.rowIndex="5">
+         <GridPane.margin>
+            <Insets left="20.0" />
+         </GridPane.margin></Label>
+      <Label fx:id="fjoldiManada" text="Fjöldi mánaða" GridPane.rowIndex="6">
+         <GridPane.margin>
+            <Insets left="20.0" />
+         </GridPane.margin></Label>
+      <TextField fx:id="flokkurInput" prefHeight="40.0" prefWidth="147.0" promptText="(t.d A, B, CE)" GridPane.columnIndex="1" />
+      <TextField fx:id="upphafsInput" prefHeight="40.0" text="0" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+      <TextField fx:id="manKmOutput" alignment="CENTER_RIGHT" prefHeight="40.0" text="0" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+      <Button fx:id="SkraBtn" alignment="BASELINE_LEFT" mnemonicParsing="false" onAction="#OnSkra" prefHeight="42.0" prefWidth="300.0" text="Skrá km stöðu" GridPane.columnSpan="2" GridPane.rowIndex="4">
+         <GridPane.margin>
+            <Insets left="10.0" />
+         </GridPane.margin></Button>
+      <Button fx:id="Hreinsa" alignment="BASELINE_LEFT" mnemonicParsing="false" onAction="#OnHreinsa" prefHeight="44.0" prefWidth="126.0" text="Hreinsa" GridPane.columnIndex="2" GridPane.rowIndex="4">
+         <GridPane.margin>
+            <Insets left="10.0" />
+         </GridPane.margin>
+      </Button>
+      <Label fx:id="gjaldKilometra" text="Gjald á Km" GridPane.columnIndex="2">
+         <GridPane.margin>
+            <Insets left="10.0" />
+         </GridPane.margin>
+      </Label>
+      <TextField fx:id="heildKmOutput" alignment="CENTER_RIGHT" prefHeight="40.0" text="0" GridPane.columnIndex="1" GridPane.rowIndex="5" />
+      <TextField fx:id="fjoldiManadaOutput" alignment="CENTER_RIGHT" prefHeight="40.0" text="0" GridPane.columnIndex="1" GridPane.rowIndex="6" />
+      <Label fx:id="lokKm" text="Loka km staða" GridPane.rowIndex="2">
+         <GridPane.margin>
+            <Insets left="20.0" />
+         </GridPane.margin>
+      </Label>
+      <TextField fx:id="lokKmInput" prefHeight="40.0" text="0" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+      <TextField fx:id="gjaldPerKmOutput" alignment="CENTER_RIGHT" prefHeight="40.0" prefWidth="147.0" text="0" GridPane.columnIndex="3">
+         <GridPane.margin>
+            <Insets right="20.0" />
+         </GridPane.margin>
+      </TextField>
+   </children>
+</GridPane>
