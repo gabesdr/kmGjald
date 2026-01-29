@@ -7,38 +7,17 @@ import javafx.scene.control.TextField;
 
 public class kmGjaldController {
 
-    //FXMLLabels
-    @FXML
-    private Label Flokkur;
-
-    @FXML
-    private Label Upphaf;
-
-    @FXML
-    private Label manKm;
-
-    @FXML
-    private Label heildKm;
-
-    @FXML
-    private Label fjoldiManada;
-
-    @FXML
-    private Label gjaldKilometra;
-
-    @FXML
-    private Label lokKm;
-
-    //FXMLTextFields
+    //FXMLTextFieldsInputs
     @FXML
     private TextField flokkurInput;
 
     @FXML
-    private TextField upphafsKmInput;
+    private TextField upphafsInput;
 
     @FXML
     private TextField lokKmInput;
 
+    //FXMLTextfieldsOutputs
     @FXML
     private TextField manKmOutput;
 
@@ -49,7 +28,7 @@ public class kmGjaldController {
     private TextField heildKmOutput;
 
     @FXML
-    private TextField gjaldPerKm;
+    private TextField gjaldPerKmOutput;
 
     //FXML Buttons
     @FXML
@@ -58,19 +37,8 @@ public class kmGjaldController {
     @FXML
     private Button Hreinsa;
 
-    @FXML
-    private void OnSkra() {
-        // TODO IMPLEMENT FUNCTIONALITY RECORDING KM STATUS
-    }
-
-    @FXML 
-    private void OnHreinsa() {
-        flokkurInput.clear();
-        upphafsKmInput.clear();
-        lokKmInput.clear();
-        manKmOutput.clear();
-        heildKmOutput.clear();
-        fjoldiManadaOutput.clear();
-        gjaldPerKm.clear();
-    }
+    // MAIN
+    int heildKm = 0;
+    int heildGreidsla = 0;
+    int fjoldiManada = 0;
 }

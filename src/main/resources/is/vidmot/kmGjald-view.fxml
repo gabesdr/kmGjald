@@ -8,7 +8,7 @@
 <?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.layout.RowConstraints?>
 
-<GridPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/25" xmlns:fx="http://javafx.com/fxml/1" fx:controller="is.vidmot.kmGjaldController">
+<GridPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" stylesheets="@kmGjald.css" xmlns="http://javafx.com/javafx/25" xmlns:fx="http://javafx.com/fxml/1" fx:controller="is.vidmot.kmGjaldController">
   <columnConstraints>
     <ColumnConstraints hgrow="SOMETIMES" maxWidth="436.80003662109374" minWidth="10.0" prefWidth="307.9999633789063" />
     <ColumnConstraints hgrow="SOMETIMES" maxWidth="346.20001220703125" minWidth="10.0" prefWidth="292.0000366210937" />
@@ -45,7 +45,7 @@
          <GridPane.margin>
             <Insets left="20.0" />
          </GridPane.margin></Label>
-      <TextField fx:id="flokkurInput" prefHeight="40.0" prefWidth="147.0" promptText="(t.d A, B, CE)" GridPane.columnIndex="1" />
+      <TextField fx:id="flokkurInput" prefHeight="40.0" prefWidth="147.0" promptText="(t.d A, B, C)" GridPane.columnIndex="1" />
       <TextField fx:id="upphafsInput" prefHeight="40.0" text="0" GridPane.columnIndex="1" GridPane.rowIndex="1" />
       <TextField fx:id="manKmOutput" alignment="CENTER_RIGHT" prefHeight="40.0" text="0" GridPane.columnIndex="1" GridPane.rowIndex="3" />
       <Button fx:id="SkraBtn" alignment="BASELINE_LEFT" mnemonicParsing="false" onAction="#OnSkra" prefHeight="42.0" prefWidth="300.0" text="Skrá km stöðu" GridPane.columnSpan="2" GridPane.rowIndex="4">
