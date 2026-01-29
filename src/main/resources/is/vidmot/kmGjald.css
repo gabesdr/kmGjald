@@ -1,0 +1,14 @@
+/* .
+* kmGjald.css
+* Keyrir stíla fyrir kmGjald forritið.
+*/
+
+#manKmOutput,
+#fjoldiManadaOutput,
+#heildKmOutput,
+#gjaldPerKmOutput {
+    -fx-control-inner-background: rgb(150, 150, 150);
+    -fx-border-width: 2;
+    -fx-border-color: black;
+    -fx-editable: false;
+}
