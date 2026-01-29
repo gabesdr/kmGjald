@@ -37,8 +37,13 @@ public class kmGjaldController {
     @FXML
     private Button Hreinsa;
 
-    // MAIN
-    int heildKm = 0;
-    int heildGreidsla = 0;
-    int fjoldiManada = 0;
+        @FXML
+    private void OnSkra() {
+        // TODO: Add functionality
+    }
+
+    @FXML
+    private void OnHreinsa() {
+        // TODO: Add functionality
+    }
 }
