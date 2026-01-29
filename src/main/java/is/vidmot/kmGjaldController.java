@@ -1,7 +1,6 @@
 package is.vidmot;
 
 import javafx.fxml.FXML;
-import javafx.scene.control.Label; // Deprecated, er ekki í notkun, geymd ef er þörf á þess síðar.
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
 
@@ -63,9 +62,8 @@ public class kmGjaldController {
 
     //INTERNAL LOGIC
     private int heildKm = 0;
-    private int heildGjald = 0;
+    private double heildGjald = 0.00;
     private int fjoldiManada = 0;
-    private static final int KM_PER_MONTH = 1;
 
     /** ... 
      * 
@@ -94,11 +92,11 @@ public class kmGjaldController {
             }
 
             int manKm = lokKm - upphaf;
-            int manGjald = manKm * erLoglegt(flokkur);
+            double manGjald = manKm * erLoglegt(flokkur);
 
             heildKm += manKm;
             heildGjald += manGjald;
-            fjoldiManada = (heildKm / KM_PER_MONTH) + 1; // Reiknir fjölda mánaða per 1km skv Island.is.
+            fjoldiManada++;
 
             manKmOutput.setText(String.valueOf(manKm));
             fjoldiManadaOutput.setText(String.valueOf(fjoldiManada));
@@ -107,7 +105,7 @@ public class kmGjaldController {
             if (heildKm > 0) {
                 gjaldPerKmOutput.setText(String.format("%.2f", (double) heildGjald / heildKm));
             } else {
-                gjaldPerKmOutput.setText("0");
+                gjaldPerKmOutput.setText("0.00");
             }
 
             flokkurInput.clear();
@@ -139,24 +137,24 @@ public class kmGjaldController {
         manKmOutput.setText("0");
         fjoldiManadaOutput.setText("0");
         heildKmOutput.setText("0");
-        gjaldPerKmOutput.setText("0");
+        gjaldPerKmOutput.setText("0.00");
         
         heildKm = 0;
-        heildGjald = 0;
+        heildGjald = 0.00;
         fjoldiManada = 0;
     }
 
 
     /** ... 
      * Helper methods til að ná í heildarkílometra, heildargreiðslu og fjölda mánaða.
-     * 
+     * @return gildi.
     */
     // Helper Methods
     public int getHeildEknirKm() {
         return heildKm;
     }
 
-    private int getHeildarGreidsl() {
+    public double getHeildarGreidsla() {
         return heildGjald;
     }
 
@@ -172,10 +170,10 @@ public class kmGjaldController {
         return erLoglegt(flokkur);
     }
 
-    public int erLoglegt(String flokkur) {
-        if (flokkur.equals("A")) return 7; // 0.000kg - 3.500kg = 7.00isk, 6.95 avg
-        if (flokkur.equals("B")) return 7; // 0.000kg - 3.500kg = 7.00isk, 6.95 avg
-        if (flokkur.equals("C")) return 10; // 3.501kg - 7.500kg = 11.00isk, 10 avg
+    public double erLoglegt(String flokkur) {
+        if (flokkur.equals("A")) return 6.95; // 0.000kg - 3.500kg = 7.00isk, 6.95 avg
+        if (flokkur.equals("B")) return 6.95; // 0.000kg - 3.500kg = 7.00isk, 6.95 avg
+        if (flokkur.equals("C")) return 10.00; // 3.501kg - 7.500kg = 11.00isk, 10 avg
         return 0;
     }
 
