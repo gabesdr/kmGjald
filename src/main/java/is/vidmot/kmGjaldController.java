@@ -98,16 +98,20 @@ public class kmGjaldController {
             heildGjald += manGjald;
             fjoldiManada++;
 
+            // Uppfærir output textfields
             manKmOutput.setText(String.valueOf(manKm));
             fjoldiManadaOutput.setText(String.valueOf(fjoldiManada));
             heildKmOutput.setText(String.valueOf(heildKm));
+
             
+            // Reiknar gjald per kilometra
             if (heildKm > 0) {
                 gjaldPerKmOutput.setText(String.format("%.2f", (double) heildGjald / heildKm));
             } else {
                 gjaldPerKmOutput.setText("0.00");
             }
 
+            // Hreinsun inntaka
             flokkurInput.clear();
             upphafsInput.setText("0");
             lokKmInput.setText("0");
@@ -149,6 +153,7 @@ public class kmGjaldController {
      * Helper methods til að ná í heildarkílometra, heildargreiðslu og fjölda mánaða.
      * @return gildi.
     */
+
     // Helper Methods
     public int getHeildEknirKm() {
         return heildKm;
@@ -170,10 +175,17 @@ public class kmGjaldController {
         return erLoglegt(flokkur);
     }
 
+    /** ... 
+     * Helper method sem athugar hvort flokk og skilar gjaldi per kílómetra.
+     * Data er byggð á íslenskum k gjöldum 
+     * @param flokkur bílaflokkur sem notandi slær inn.
+     * @return gjald per kílómetra ef flokk er löglegur, annars 0 = error code.
+     * 
+    */
     public double erLoglegt(String flokkur) {
-        if (flokkur.equals("A")) return 6.95; // 0.000kg - 3.500kg = 7.00isk, 6.95 avg
-        if (flokkur.equals("B")) return 6.95; // 0.000kg - 3.500kg = 7.00isk, 6.95 avg
-        if (flokkur.equals("C")) return 10.00; // 3.501kg - 7.500kg = 11.00isk, 10 avg
+        if (flokkur.equals("A")) return 4.15;
+        if (flokkur.equals("B")) return 6.95;
+        if (flokkur.equals("C")) return 10.00;
         return 0;
     }
 
