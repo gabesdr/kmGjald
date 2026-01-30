@@ -68,7 +68,9 @@ public class kmGjaldController {
     /** ... 
      * 
      * Höndlar Skrá og Hreinsunar takkanna.
-     * 
+     * Reiknar út kílómetra og gjald per kílómetra.
+     * Uppfærir output textfields.
+     * Með villumeðhöndlun fyrir ólögleg inntök.
      * @throws NumberFormatException ef inntak er ógilt eða ekki slegið inn.
      * 
     */
