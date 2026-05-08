@@ -8,7 +8,7 @@
 <?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.layout.RowConstraints?>
 
-<GridPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" stylesheets="@kmGjald.css" xmlns="http://javafx.com/javafx/25" xmlns:fx="http://javafx.com/fxml/1" fx:controller="is.vidmot.kmGjaldController">
+<GridPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="450.0" prefWidth="600.0" stylesheets="@kmGjald.css" xmlns="http://javafx.com/javafx/25" xmlns:fx="http://javafx.com/fxml/1" fx:controller="is.vidmot.kmGjaldController">
   <columnConstraints>
     <ColumnConstraints hgrow="SOMETIMES" maxWidth="436.80003662109374" minWidth="10.0" prefWidth="307.9999633789063" />
     <ColumnConstraints hgrow="SOMETIMES" maxWidth="346.20001220703125" minWidth="10.0" prefWidth="292.0000366210937" />
@@ -18,6 +18,7 @@
   <rowConstraints>
     <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
     <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+    <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
       <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
     <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
       <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
@@ -25,51 +26,73 @@
       <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
   </rowConstraints>
    <children>
-      <Label fx:id="Flokkur" text="Flokkur">
-         <GridPane.margin>
-            <Insets left="20.0" />
-         </GridPane.margin></Label>
-      <Label fx:id="Upphaf" text="Upphafs km Staða" GridPane.rowIndex="1">
-         <GridPane.margin>
-            <Insets left="20.0" />
-         </GridPane.margin></Label>
-      <Label fx:id="manKm" text="Mán. km og gjald" GridPane.rowIndex="3">
-         <GridPane.margin>
-            <Insets left="20.0" />
-         </GridPane.margin></Label>
-      <Label fx:id="heildKm" text="Heild km og gjald" GridPane.rowIndex="5">
-         <GridPane.margin>
-            <Insets left="20.0" />
-         </GridPane.margin></Label>
-      <Label fx:id="fjoldiManada" text="Fjöldi mánaða" GridPane.rowIndex="6">
+      <!-- Row 0: Flokkur -->
+      <Label fx:id="Flokkur" text="Flokkur (A/B/C)">
          <GridPane.margin>
             <Insets left="20.0" />
          </GridPane.margin></Label>
       <TextField fx:id="flokkurInput" prefHeight="40.0" prefWidth="147.0" promptText="(t.d A, B, C)" GridPane.columnIndex="1" />
-      <TextField fx:id="upphafsInput" prefHeight="40.0" text="0" GridPane.columnIndex="1" GridPane.rowIndex="1" />
-      <TextField fx:id="manKmOutput" alignment="CENTER_RIGHT" prefHeight="40.0" text="0" GridPane.columnIndex="1" GridPane.rowIndex="3" />
-      <Button fx:id="SkraBtn" alignment="BASELINE_LEFT" mnemonicParsing="false" onAction="#OnSkra" prefHeight="42.0" prefWidth="300.0" text="Skrá km stöðu" GridPane.columnSpan="2" GridPane.rowIndex="4">
+
+      <!-- Row 1: Þyngd (aðeins notað fyrir flokk C) -->
+      <Label fx:id="Thyngd" text="Þyngd, kg (aðeins C)" GridPane.rowIndex="1">
          <GridPane.margin>
-            <Insets left="10.0" />
-         </GridPane.margin></Button>
-      <Button fx:id="Hreinsa" alignment="BASELINE_LEFT" mnemonicParsing="false" onAction="#OnHreinsa" prefHeight="44.0" prefWidth="126.0" text="Hreinsa" GridPane.columnIndex="2" GridPane.rowIndex="4">
+            <Insets left="20.0" />
+         </GridPane.margin></Label>
+      <TextField fx:id="thyngdInput" disable="true" prefHeight="40.0" promptText="Aðeins fyrir flokk C" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+
+      <!-- Row 2: Upphafs km -->
+      <Label fx:id="Upphaf" text="Upphafs km Staða" GridPane.rowIndex="2">
          <GridPane.margin>
-            <Insets left="10.0" />
-         </GridPane.margin>
-      </Button>
-      <Label fx:id="gjaldKilometra" text="Gjald á Km" GridPane.columnIndex="2">
-         <GridPane.margin>
-            <Insets left="10.0" />
-         </GridPane.margin>
-      </Label>
-      <TextField fx:id="heildKmOutput" alignment="CENTER_RIGHT" prefHeight="40.0" text="0" GridPane.columnIndex="1" GridPane.rowIndex="5" />
-      <TextField fx:id="fjoldiManadaOutput" alignment="CENTER_RIGHT" prefHeight="40.0" text="0" GridPane.columnIndex="1" GridPane.rowIndex="6" />
-      <Label fx:id="lokKm" text="Loka km staða" GridPane.rowIndex="2">
+            <Insets left="20.0" />
+         </GridPane.margin></Label>
+      <TextField fx:id="upphafsInput" prefHeight="40.0" text="0" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+
+      <!-- Row 3: Loka km -->
+      <Label fx:id="lokKm" text="Loka km staða" GridPane.rowIndex="3">
          <GridPane.margin>
             <Insets left="20.0" />
          </GridPane.margin>
       </Label>
-      <TextField fx:id="lokKmInput" prefHeight="40.0" text="0" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+      <TextField fx:id="lokKmInput" prefHeight="40.0" text="0" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+
+      <!-- Row 4: Mánaðar km / gjald -->
+      <Label fx:id="manKm" text="Þessi mánuður (km/kr)" GridPane.rowIndex="4">
+         <GridPane.margin>
+            <Insets left="20.0" />
+         </GridPane.margin></Label>
+      <TextField fx:id="manKmOutput" alignment="CENTER_RIGHT" prefHeight="40.0" text="0" GridPane.columnIndex="1" GridPane.rowIndex="4" />
+
+      <!-- Row 5: Buttons -->
+      <Button fx:id="SkraBtn" alignment="BASELINE_LEFT" mnemonicParsing="false" onAction="#OnSkra" prefHeight="42.0" prefWidth="300.0" text="Skrá km stöðu" GridPane.columnSpan="2" GridPane.rowIndex="5">
+         <GridPane.margin>
+            <Insets left="10.0" />
+         </GridPane.margin></Button>
+      <Button fx:id="Hreinsa" alignment="BASELINE_LEFT" mnemonicParsing="false" onAction="#OnHreinsa" prefHeight="44.0" prefWidth="126.0" text="Hreinsa" GridPane.columnIndex="2" GridPane.rowIndex="5">
+         <GridPane.margin>
+            <Insets left="10.0" />
+         </GridPane.margin>
+      </Button>
+
+      <!-- Row 6: Heild km og gjald -->
+      <Label fx:id="heildKm" text="Samtals allir mán. (km/kr)" GridPane.rowIndex="6">
+         <GridPane.margin>
+            <Insets left="20.0" />
+         </GridPane.margin></Label>
+      <TextField fx:id="heildKmOutput" alignment="CENTER_RIGHT" prefHeight="40.0" text="0" GridPane.columnIndex="1" GridPane.rowIndex="6" />
+
+      <!-- Row 7: Fjöldi mánaða -->
+      <Label fx:id="fjoldiManada" text="Fjöldi mánaða" GridPane.rowIndex="7">
+         <GridPane.margin>
+            <Insets left="20.0" />
+         </GridPane.margin></Label>
+      <TextField fx:id="fjoldiManadaOutput" alignment="CENTER_RIGHT" prefHeight="40.0" text="0" GridPane.columnIndex="1" GridPane.rowIndex="7" />
+
+      <!-- Gjald á Km panel (right side, top) -->
+      <Label fx:id="gjaldKilometra" text="Meðalgjald á Km" GridPane.columnIndex="2">
+         <GridPane.margin>
+            <Insets left="10.0" />
+         </GridPane.margin>
+      </Label>
       <TextField fx:id="gjaldPerKmOutput" alignment="CENTER_RIGHT" prefHeight="40.0" prefWidth="147.0" text="0.00" GridPane.columnIndex="3">
          <GridPane.margin>
             <Insets right="20.0" />

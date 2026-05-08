@@ -4,15 +4,14 @@ import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
-
 import java.io.IOException;
 
 
-/** ... 
- * 
+/** ...
+ *
  * Klassi sem hleður upp forritið og sýnir það í glugga með tilheyrandi scene.
- * 
- * 
+ *
+ *
 */
 public class kmGjaldApp extends Application {
     @Override

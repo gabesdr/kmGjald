@@ -1,13 +1,129 @@
-/* .
-* kmGjald.css
-* Keyrir stíla fyrir kmGjald forritið.
-*/
+/* ==========================================================================
+ * kmGjald.css - Modern Nordic theme
+ * Hrein, einföld og skandinavísk hönnun fyrir kílómetragjalda forritið.
+ * ========================================================================== */
 
+
+/* ---------- Root container ---------- */
+.root {
+    -fx-background-color: #F8FAFC;
+    -fx-font-family: "Segoe UI", "Helvetica Neue", "Arial", sans-serif;
+    -fx-font-size: 13px;
+    -fx-padding: 20px;
+}
+
+
+/* ---------- Labels (vinstri dálkur) ---------- */
+.label {
+    -fx-text-fill: #1A2B3C;
+    -fx-font-weight: 600;
+    -fx-font-size: 13px;
+}
+
+
+/* ---------- Allir TextFields - sameiginlegur grunnur ---------- */
+.text-field {
+    -fx-background-color: white;
+    -fx-text-fill: #1A2B3C;
+    -fx-prompt-text-fill: #94A3B8;
+    -fx-border-color: #D5DCE3;
+    -fx-border-width: 1.5;
+    -fx-border-radius: 6;
+    -fx-background-radius: 6;
+    -fx-padding: 6 12 6 12;
+    -fx-font-size: 13px;
+}
+
+/* Áhersluhringur þegar smellt er á reit */
+.text-field:focused {
+    -fx-border-color: #0B5394;
+    -fx-border-width: 2;
+    -fx-effect: dropshadow(gaussian, rgba(11, 83, 148, 0.15), 4, 0, 0, 0);
+}
+
+/* Læstur reitur (t.d. þyngd þegar flokkur er ekki C) */
+.text-field:disabled {
+    -fx-background-color: #ECEFF3;
+    -fx-text-fill: #94A3B8;
+    -fx-border-color: #DDE3EA;
+    -fx-opacity: 1.0;  /* JavaFX dimmar disabled sjálfkrafa - viljum stjórna því sjálf */
+}
+
+
+/* ---------- Output reitir (read-only, með aðeins öðruvísi bakgrunn) ---------- */
 #manKmOutput,
 #fjoldiManadaOutput,
 #heildKmOutput,
 #gjaldPerKmOutput {
-    -fx-control-inner-background: #F4F4F4;
-    -fx-border-width: 2;
-    -fx-border-color: black;
+    -fx-background-color: #EEF4FB;
+    -fx-text-fill: #0B5394;
+    -fx-font-weight: 700;
+    -fx-border-color: #C7D6E8;
+    -fx-border-width: 1.5;
+    -fx-border-radius: 6;
+    -fx-background-radius: 6;
+}
+
+
+/* ---------- Skrá takkinn (aðal-action) ---------- */
+#SkraBtn {
+    -fx-background-color: #0B5394;
+    -fx-text-fill: white;
+    -fx-font-weight: 700;
+    -fx-font-size: 13px;
+    -fx-background-radius: 6;
+    -fx-border-radius: 6;
+    -fx-padding: 8 16 8 16;
+    -fx-cursor: hand;
+}
+
+#SkraBtn:hover {
+    -fx-background-color: #2E7CB8;
+}
+
+#SkraBtn:pressed {
+    -fx-background-color: #084273;
+}
+
+
+/* ---------- Hreinsa takkinn (secondary action) ---------- */
+#Hreinsa {
+    -fx-background-color: white;
+    -fx-text-fill: #0B5394;
+    -fx-font-weight: 600;
+    -fx-font-size: 13px;
+    -fx-border-color: #0B5394;
+    -fx-border-width: 1.5;
+    -fx-border-radius: 6;
+    -fx-background-radius: 6;
+    -fx-padding: 8 16 8 16;
+    -fx-cursor: hand;
+}
+
+#Hreinsa:hover {
+    -fx-background-color: #EEF4FB;
+}
+
+#Hreinsa:pressed {
+    -fx-background-color: #D9E5F2;
+}
+
+
+/* ---------- Sérstakur stíll fyrir meðalgjaldsreitinn (áberandi) ---------- */
+#gjaldPerKmOutput {
+    -fx-font-size: 16px;
+    -fx-alignment: CENTER;
+    -fx-background-color: #0B5394;
+    -fx-text-fill: white;
+    -fx-border-color: #084273;
+}
+
+
+/* ---------- Alert glugginn (villuskilaboð) ---------- */
+.alert {
+    -fx-background-color: #F8FAFC;
+}
+
+.alert .header-panel {
+    -fx-background-color: #0B5394;
 }
