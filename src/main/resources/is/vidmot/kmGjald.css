@@ -1,19 +1,17 @@
 /* ==========================================================================
- * kmGjald.css - Modern Nordic theme
- * Hrein, einföld og skandinavísk hönnun fyrir kílómetragjalda forritið.
+ * kmGjald.css - Modern Nordic theme með history panel
  * ========================================================================== */
 
 
-/* ---------- Root container ---------- */
+/* ---------- Root ---------- */
 .root {
     -fx-background-color: #F8FAFC;
     -fx-font-family: "Segoe UI", "Helvetica Neue", "Arial", sans-serif;
     -fx-font-size: 13px;
-    -fx-padding: 20px;
 }
 
 
-/* ---------- Labels (vinstri dálkur) ---------- */
+/* ---------- Labels ---------- */
 .label {
     -fx-text-fill: #1A2B3C;
     -fx-font-weight: 600;
@@ -21,7 +19,7 @@
 }
 
 
-/* ---------- Allir TextFields - sameiginlegur grunnur ---------- */
+/* ---------- TextFields ---------- */
 .text-field {
     -fx-background-color: white;
     -fx-text-fill: #1A2B3C;
@@ -34,27 +32,24 @@
     -fx-font-size: 13px;
 }
 
-/* Áhersluhringur þegar smellt er á reit */
 .text-field:focused {
     -fx-border-color: #0B5394;
     -fx-border-width: 2;
     -fx-effect: dropshadow(gaussian, rgba(11, 83, 148, 0.15), 4, 0, 0, 0);
 }
 
-/* Læstur reitur (t.d. þyngd þegar flokkur er ekki C) */
 .text-field:disabled {
     -fx-background-color: #ECEFF3;
     -fx-text-fill: #94A3B8;
     -fx-border-color: #DDE3EA;
-    -fx-opacity: 1.0;  /* JavaFX dimmar disabled sjálfkrafa - viljum stjórna því sjálf */
+    -fx-opacity: 1.0;
 }
 
 
-/* ---------- Output reitir (read-only, með aðeins öðruvísi bakgrunn) ---------- */
+/* ---------- Output reitir ---------- */
 #manKmOutput,
 #fjoldiManadaOutput,
-#heildKmOutput,
-#gjaldPerKmOutput {
+#heildKmOutput {
     -fx-background-color: #EEF4FB;
     -fx-text-fill: #0B5394;
     -fx-font-weight: 700;
@@ -65,7 +60,21 @@
 }
 
 
-/* ---------- Skrá takkinn (aðal-action) ---------- */
+/* ---------- "Hero" reiturinn fyrir meðalgjald ---------- */
+#gjaldPerKmOutput {
+    -fx-font-size: 16px;
+    -fx-alignment: CENTER;
+    -fx-background-color: #0B5394;
+    -fx-text-fill: white;
+    -fx-font-weight: 700;
+    -fx-border-color: #084273;
+    -fx-border-width: 1.5;
+    -fx-border-radius: 6;
+    -fx-background-radius: 6;
+}
+
+
+/* ---------- Skrá takkinn (primary) ---------- */
 #SkraBtn {
     -fx-background-color: #0B5394;
     -fx-text-fill: white;
@@ -77,16 +86,11 @@
     -fx-cursor: hand;
 }
 
-#SkraBtn:hover {
-    -fx-background-color: #2E7CB8;
-}
-
-#SkraBtn:pressed {
-    -fx-background-color: #084273;
-}
+#SkraBtn:hover { -fx-background-color: #2E7CB8; }
+#SkraBtn:pressed { -fx-background-color: #084273; }
 
 
-/* ---------- Hreinsa takkinn (secondary action) ---------- */
+/* ---------- Hreinsa takkinn (secondary) ---------- */
 #Hreinsa {
     -fx-background-color: white;
     -fx-text-fill: #0B5394;
@@ -100,30 +104,115 @@
     -fx-cursor: hand;
 }
 
-#Hreinsa:hover {
+#Hreinsa:hover { -fx-background-color: #EEF4FB; }
+#Hreinsa:pressed { -fx-background-color: #D9E5F2; }
+
+
+/* ==========================================================================
+ * History panel
+ * ========================================================================== */
+
+.historyPanel {
+    -fx-background-color: white;
+    -fx-border-color: #D5DCE3;
+    -fx-border-width: 1.5;
+    -fx-border-radius: 8;
+    -fx-background-radius: 8;
+}
+
+.historyTitle {
+    -fx-font-size: 15px;
+    -fx-font-weight: 700;
+    -fx-text-fill: #1A2B3C;
+    -fx-padding: 0 0 4 0;
+}
+
+
+/* ---------- ListView ---------- */
+.list-view {
+    -fx-background-color: #F8FAFC;
+    -fx-border-color: #D5DCE3;
+    -fx-border-width: 1;
+    -fx-border-radius: 6;
+    -fx-background-radius: 6;
+    -fx-padding: 0;
+}
+
+.list-cell {
+    -fx-background-color: transparent;
+    -fx-text-fill: #1A2B3C;
+    -fx-font-size: 12px;
+    -fx-padding: 8 12 8 12;
+    -fx-border-color: transparent transparent #ECEFF3 transparent;
+    -fx-border-width: 0 0 1 0;
+}
+
+.list-cell:filled:hover {
     -fx-background-color: #EEF4FB;
 }
 
-#Hreinsa:pressed {
-    -fx-background-color: #D9E5F2;
-}
-
-
-/* ---------- Sérstakur stíll fyrir meðalgjaldsreitinn (áberandi) ---------- */
-#gjaldPerKmOutput {
-    -fx-font-size: 16px;
-    -fx-alignment: CENTER;
+.list-cell:filled:selected {
     -fx-background-color: #0B5394;
     -fx-text-fill: white;
-    -fx-border-color: #084273;
+}
+
+.list-cell:filled:selected:hover {
+    -fx-background-color: #2E7CB8;
+}
+
+.list-cell:empty {
+    -fx-background-color: transparent;
 }
 
 
-/* ---------- Alert glugginn (villuskilaboð) ---------- */
-.alert {
-    -fx-background-color: #F8FAFC;
+/* ---------- Eyða völdu (danger) ---------- */
+.dangerButton {
+    -fx-background-color: white;
+    -fx-text-fill: #B91C1C;
+    -fx-font-weight: 600;
+    -fx-font-size: 12px;
+    -fx-border-color: #FCA5A5;
+    -fx-border-width: 1.5;
+    -fx-border-radius: 6;
+    -fx-background-radius: 6;
+    -fx-padding: 6 12 6 12;
+    -fx-cursor: hand;
 }
 
+.dangerButton:hover {
+    -fx-background-color: #FEF2F2;
+    -fx-border-color: #F87171;
+}
+
+.dangerButton:pressed {
+    -fx-background-color: #FEE2E2;
+}
+
+
+/* ---------- Hreinsa sögu (secondary, muted) ---------- */
+.secondaryButton {
+    -fx-background-color: white;
+    -fx-text-fill: #64748B;
+    -fx-font-weight: 600;
+    -fx-font-size: 12px;
+    -fx-border-color: #D5DCE3;
+    -fx-border-width: 1.5;
+    -fx-border-radius: 6;
+    -fx-background-radius: 6;
+    -fx-padding: 6 12 6 12;
+    -fx-cursor: hand;
+}
+
+.secondaryButton:hover {
+    -fx-background-color: #F1F5F9;
+}
+
+.secondaryButton:pressed {
+    -fx-background-color: #E2E8F0;
+}
+
+
+/* ---------- Alert dialog ---------- */
 .alert .header-panel {
     -fx-background-color: #0B5394;
 }

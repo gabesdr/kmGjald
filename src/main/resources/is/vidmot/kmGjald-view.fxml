@@ -3,100 +3,129 @@
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ListView?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.ColumnConstraints?>
 <?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.layout.VBox?>
 
-<GridPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="450.0" prefWidth="600.0" stylesheets="@kmGjald.css" xmlns="http://javafx.com/javafx/25" xmlns:fx="http://javafx.com/fxml/1" fx:controller="is.vidmot.kmGjaldController">
-  <columnConstraints>
-    <ColumnConstraints hgrow="SOMETIMES" maxWidth="436.80003662109374" minWidth="10.0" prefWidth="307.9999633789063" />
-    <ColumnConstraints hgrow="SOMETIMES" maxWidth="346.20001220703125" minWidth="10.0" prefWidth="292.0000366210937" />
-      <ColumnConstraints hgrow="SOMETIMES" maxWidth="346.20001220703125" minWidth="10.0" prefWidth="292.0000366210937" />
-      <ColumnConstraints hgrow="SOMETIMES" maxWidth="346.20001220703125" minWidth="10.0" prefWidth="292.0000366210937" />
-  </columnConstraints>
-  <rowConstraints>
-    <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-    <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-    <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-      <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-    <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-      <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-      <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-      <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-  </rowConstraints>
-   <children>
+<HBox prefHeight="520.0" prefWidth="960.0" spacing="10" stylesheets="@kmGjald.css" xmlns="http://javafx.com/javafx/25" xmlns:fx="http://javafx.com/fxml/1" fx:controller="is.vidmot.kmGjaldController">
+
+  <padding>
+    <Insets bottom="10" left="10" right="10" top="10" />
+  </padding>
+
+  <!-- ==================== Vinstra megin: Skráningar form ==================== -->
+  <GridPane prefHeight="500.0" prefWidth="640.0" HBox.hgrow="ALWAYS">
+    <columnConstraints>
+      <ColumnConstraints hgrow="SOMETIMES" maxWidth="436.8" minWidth="10.0" prefWidth="220.0" />
+      <ColumnConstraints hgrow="SOMETIMES" maxWidth="346.2" minWidth="10.0" prefWidth="200.0" />
+      <ColumnConstraints hgrow="SOMETIMES" maxWidth="346.2" minWidth="10.0" prefWidth="120.0" />
+      <ColumnConstraints hgrow="SOMETIMES" maxWidth="346.2" minWidth="10.0" prefWidth="120.0" />
+    </columnConstraints>
+    <rowConstraints>
+      <RowConstraints minHeight="10.0" prefHeight="40.0" vgrow="SOMETIMES" />
+      <RowConstraints minHeight="10.0" prefHeight="40.0" vgrow="SOMETIMES" />
+      <RowConstraints minHeight="10.0" prefHeight="40.0" vgrow="SOMETIMES" />
+      <RowConstraints minHeight="10.0" prefHeight="40.0" vgrow="SOMETIMES" />
+      <RowConstraints minHeight="10.0" prefHeight="40.0" vgrow="SOMETIMES" />
+      <RowConstraints minHeight="10.0" prefHeight="50.0" vgrow="SOMETIMES" />
+      <RowConstraints minHeight="10.0" prefHeight="40.0" vgrow="SOMETIMES" />
+      <RowConstraints minHeight="10.0" prefHeight="40.0" vgrow="SOMETIMES" />
+    </rowConstraints>
+    <children>
       <!-- Row 0: Flokkur -->
-      <Label fx:id="Flokkur" text="Flokkur (A/B/C)">
-         <GridPane.margin>
-            <Insets left="20.0" />
-         </GridPane.margin></Label>
-      <TextField fx:id="flokkurInput" prefHeight="40.0" prefWidth="147.0" promptText="(t.d A, B, C)" GridPane.columnIndex="1" />
+      <Label text="Flokkur (A/B/C)">
+        <GridPane.margin>
+          <Insets left="20.0" />
+        </GridPane.margin>
+      </Label>
+      <TextField fx:id="flokkurInput" prefHeight="40.0" promptText="(t.d A, B, C)" GridPane.columnIndex="1" />
 
       <!-- Row 1: Þyngd (aðeins notað fyrir flokk C) -->
-      <Label fx:id="Thyngd" text="Þyngd, kg (aðeins C)" GridPane.rowIndex="1">
-         <GridPane.margin>
-            <Insets left="20.0" />
-         </GridPane.margin></Label>
+      <Label text="Þyngd, kg (aðeins C)" GridPane.rowIndex="1">
+        <GridPane.margin>
+          <Insets left="20.0" />
+        </GridPane.margin>
+      </Label>
       <TextField fx:id="thyngdInput" disable="true" prefHeight="40.0" promptText="Aðeins fyrir flokk C" GridPane.columnIndex="1" GridPane.rowIndex="1" />
 
       <!-- Row 2: Upphafs km -->
-      <Label fx:id="Upphaf" text="Upphafs km Staða" GridPane.rowIndex="2">
-         <GridPane.margin>
-            <Insets left="20.0" />
-         </GridPane.margin></Label>
+      <Label text="Upphafs km Staða" GridPane.rowIndex="2">
+        <GridPane.margin>
+          <Insets left="20.0" />
+        </GridPane.margin>
+      </Label>
       <TextField fx:id="upphafsInput" prefHeight="40.0" text="0" GridPane.columnIndex="1" GridPane.rowIndex="2" />
 
       <!-- Row 3: Loka km -->
-      <Label fx:id="lokKm" text="Loka km staða" GridPane.rowIndex="3">
-         <GridPane.margin>
-            <Insets left="20.0" />
-         </GridPane.margin>
+      <Label text="Loka km staða" GridPane.rowIndex="3">
+        <GridPane.margin>
+          <Insets left="20.0" />
+        </GridPane.margin>
       </Label>
       <TextField fx:id="lokKmInput" prefHeight="40.0" text="0" GridPane.columnIndex="1" GridPane.rowIndex="3" />
 
       <!-- Row 4: Mánaðar km / gjald -->
-      <Label fx:id="manKm" text="Þessi mánuður (km/kr)" GridPane.rowIndex="4">
-         <GridPane.margin>
-            <Insets left="20.0" />
-         </GridPane.margin></Label>
+      <Label text="Þessi mánuður (km/kr)" GridPane.rowIndex="4">
+        <GridPane.margin>
+          <Insets left="20.0" />
+        </GridPane.margin>
+      </Label>
       <TextField fx:id="manKmOutput" alignment="CENTER_RIGHT" prefHeight="40.0" text="0" GridPane.columnIndex="1" GridPane.rowIndex="4" />
 
       <!-- Row 5: Buttons -->
-      <Button fx:id="SkraBtn" alignment="BASELINE_LEFT" mnemonicParsing="false" onAction="#OnSkra" prefHeight="42.0" prefWidth="300.0" text="Skrá km stöðu" GridPane.columnSpan="2" GridPane.rowIndex="5">
-         <GridPane.margin>
-            <Insets left="10.0" />
-         </GridPane.margin></Button>
-      <Button fx:id="Hreinsa" alignment="BASELINE_LEFT" mnemonicParsing="false" onAction="#OnHreinsa" prefHeight="44.0" prefWidth="126.0" text="Hreinsa" GridPane.columnIndex="2" GridPane.rowIndex="5">
-         <GridPane.margin>
-            <Insets left="10.0" />
-         </GridPane.margin>
+      <Button fx:id="SkraBtn" defaultButton="true" mnemonicParsing="false" onAction="#OnSkra" prefHeight="42.0" prefWidth="200.0" text="Skrá km stöðu" GridPane.rowIndex="5">
+        <GridPane.margin>
+          <Insets left="20.0" />
+        </GridPane.margin>
       </Button>
+      <Button fx:id="Hreinsa" mnemonicParsing="false" onAction="#OnHreinsa" prefHeight="42.0" prefWidth="200.0" text="Hreinsa" GridPane.columnIndex="1" GridPane.rowIndex="5" />
 
       <!-- Row 6: Heild km og gjald -->
-      <Label fx:id="heildKm" text="Samtals allir mán. (km/kr)" GridPane.rowIndex="6">
-         <GridPane.margin>
-            <Insets left="20.0" />
-         </GridPane.margin></Label>
+      <Label text="Samtals allir mán. (km/kr)" GridPane.rowIndex="6">
+        <GridPane.margin>
+          <Insets left="20.0" />
+        </GridPane.margin>
+      </Label>
       <TextField fx:id="heildKmOutput" alignment="CENTER_RIGHT" prefHeight="40.0" text="0" GridPane.columnIndex="1" GridPane.rowIndex="6" />
 
-      <!-- Row 7: Fjöldi mánaða -->
-      <Label fx:id="fjoldiManada" text="Fjöldi mánaða" GridPane.rowIndex="7">
-         <GridPane.margin>
-            <Insets left="20.0" />
-         </GridPane.margin></Label>
+      <!-- Row 7: Fjöldi mánaða + meðalgjald -->
+      <Label text="Fjöldi mánaða" GridPane.rowIndex="7">
+        <GridPane.margin>
+          <Insets left="20.0" />
+        </GridPane.margin>
+      </Label>
       <TextField fx:id="fjoldiManadaOutput" alignment="CENTER_RIGHT" prefHeight="40.0" text="0" GridPane.columnIndex="1" GridPane.rowIndex="7" />
 
-      <!-- Gjald á Km panel (right side, top) -->
-      <Label fx:id="gjaldKilometra" text="Meðalgjald á Km" GridPane.columnIndex="2">
-         <GridPane.margin>
-            <Insets left="10.0" />
-         </GridPane.margin>
-      </Label>
-      <TextField fx:id="gjaldPerKmOutput" alignment="CENTER_RIGHT" prefHeight="40.0" prefWidth="147.0" text="0.00" GridPane.columnIndex="3">
-         <GridPane.margin>
-            <Insets right="20.0" />
-         </GridPane.margin>
+      <Label text="Meðalgjald á Km" GridPane.columnIndex="2" GridPane.rowIndex="7">
+            <GridPane.margin>
+               <Insets left="5.0" />
+            </GridPane.margin></Label>
+      <TextField fx:id="gjaldPerKmOutput" alignment="CENTER" prefHeight="40.0" text="0.00" GridPane.columnIndex="3" GridPane.rowIndex="7">
+        <GridPane.margin>
+          <Insets right="10.0" />
+        </GridPane.margin>
       </TextField>
-   </children>
-</GridPane>
+    </children>
+  </GridPane>
+
+  <!-- ==================== Hægra megin: Sögupanell ==================== -->
+  <VBox prefWidth="280.0" spacing="8" styleClass="historyPanel">
+    <padding>
+      <Insets bottom="10" left="10" right="10" top="10" />
+    </padding>
+
+    <Label styleClass="historyTitle" text="Skráningar" />
+
+    <ListView fx:id="soguListi" prefHeight="320.0" VBox.vgrow="ALWAYS" />
+
+    <HBox spacing="6">
+      <Button fx:id="EydaBtn" maxWidth="Infinity" mnemonicParsing="false" onAction="#OnEyda" styleClass="dangerButton" text="Eyða skráning" HBox.hgrow="ALWAYS" />
+      <Button fx:id="HreinsaSoguBtn" maxWidth="Infinity" mnemonicParsing="false" onAction="#OnHreinsaSogu" styleClass="secondaryButton" text="Hreinsa sögu" HBox.hgrow="ALWAYS" />
+    </HBox>
+  </VBox>
+
+</HBox>

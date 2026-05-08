@@ -1,66 +1,69 @@
 package is.vidmot;
 
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
+import javafx.scene.control.ListView;
 import javafx.scene.control.TextField;
 
-/** ...
+import java.time.LocalDate;
+
+/**
  * Controller klasi fyrir KmGjaldView.fxml
+ *
  * Notaður til að skrá kílómetraakstur og reikna út gjald per kílómetra.
- * Hefur innbyggða villumeðhöndlun fyrir ólöglegar inntök.
- * Notar so líka kmGjald.css fyrir stílingu.
+ * Heldur utan um sögu skráninga (ObservableList) og sýnir í ListView.
  *
  * Flokkar:
- *   A = Mótorhjól / vespur     -> 4.15 kr/km (fast gjald)
+ *   A = Bifhjól / vespur     -> 4.15 kr/km (fast gjald)
  *   B = Almennir bílar (≤3500 kg) -> 6.95 kr/km (fast gjald)
  *   C = Þungir bílar (>3500 kg)   -> gjald fer eftir þyngd (sjá taxta)
  *
- * @author Gabríel del Rosario
- * @email gdr5@hi.is
- * @version 1.1
- *
- * Það er ekki víst að allar upplýsingar sem koma fram í þessum forriti séu nákvæmar eða uppfærðar eftir lögum og reglum kílómetragjalda.
- *
-*/
+ * author: Gabríel del Rosario
+ * email: gdr5@hi.is
+ * version: Kílometrargjald 2.0 - History
+ */
 public class kmGjaldController {
-    //FXMLTextFieldsInputs
-    @FXML
-    private TextField flokkurInput;
 
-    @FXML
-    private TextField thyngdInput;   // NÝTT: þyngd í kg, notað fyrir flokk C
+    // ---------- FXML inputs ----------
+    @FXML private TextField flokkurInput;
+    @FXML private TextField thyngdInput;
+    @FXML private TextField upphafsInput;
+    @FXML private TextField lokKmInput;
 
-    @FXML
-    private TextField upphafsInput;
+    // ---------- FXML outputs ----------
+    @FXML private TextField manKmOutput;
+    @FXML private TextField fjoldiManadaOutput;
+    @FXML private TextField heildKmOutput;
+    @FXML private TextField gjaldPerKmOutput;
 
-    @FXML
-    private TextField lokKmInput;
+    // ---------- FXML buttons ----------
+    @FXML private Button SkraBtn;
+    @FXML private Button Hreinsa;
+    @FXML private Button EydaBtn;
+    @FXML private Button HreinsaSoguBtn;
 
-    //FXMLTextfieldsOutputs
-    @FXML
-    private TextField manKmOutput;
+    // ---------- FXML history panel ----------
+    @FXML private ListView<kmGjaldManudur> soguListi;
 
-    @FXML
-    private TextField fjoldiManadaOutput;
+    // ---------- Internal state ----------
+    private int heildKm = 0;
+    private double heildGjald = 0.00;
+    private int fjoldiManada = 0;
 
-    @FXML
-    private TextField heildKmOutput;
+    /**
+     * ObservableList er sérstök gerð af lista sem JavaFX getur "hlustað á".
+     * Þegar við bætum við eða fjarlægjum úr þessum lista uppfærist ListView sjálfvirkt.
+     * Þetta heitir "Observer pattern" og er mjög algengt í GUI forritun.
+     */
+    private final ObservableList<kmGjaldManudur> saga = FXCollections.observableArrayList();
 
-    @FXML
-    private TextField gjaldPerKmOutput;
-
-    //FXML Buttons
-    @FXML
-    private Button SkraBtn;
-
-    @FXML
-    private Button Hreinsa;
-
-    /** ...
+    /**
      * Initalizer method sem keyrist við hleðslu á view.
-     * Initilazerar output sem non-editable.
-     * Læsir thyngdInput nema flokkur sé "C".
-    */
+     * Stillir output sem read-only, læsir thyngdInput nema flokkur sé "C",
+     * og tengir history list við ListView.
+     */
     @FXML
     public void initialize() {
         manKmOutput.setEditable(false);
@@ -84,24 +87,14 @@ public class kmGjaldController {
                 thyngdInput.setPromptText("Aðeins fyrir flokk C");
             }
         });
+
+        // Tengja söguna við ListView - allt sem við bætum við "saga" birtist sjálfkrafa
+        soguListi.setItems(saga);
     }
 
-    //INTERNAL LOGIC
-    private int heildKm = 0;
-    private double heildGjald = 0.00;
-    private int fjoldiManada = 0;
-
-    /** ...
-     *
-     * Höndlar Skrá og Hreinsunar takkanna.
-     * Reiknar út kílómetra og gjald per kílómetra.
-     * Uppfærir output textfields.
-     * Með villumeðhöndlun fyrir ólögleg inntök.
-     * @throws NumberFormatException ef inntak er ógilt eða ekki slegið inn.
-     *
-    */
-
-    // Button Skra actions
+    // ==========================================================================
+    // SKRA - skráir nýjan mánuð
+    // ==========================================================================
     @FXML
     private void OnSkra() {
         try {
@@ -115,7 +108,7 @@ public class kmGjaldController {
                 return;
             }
 
-            // 2) Athuga km - engin neikvæð gildi og lokKm verður að vera stærri en upphaf
+            // 2) Athuga km
             if (upphaf < 0 || lokKm < 0) {
                 error("Kílómetrastaða getur ekki verið neikvæð");
                 return;
@@ -131,13 +124,14 @@ public class kmGjaldController {
 
             // 3) Reikna gjald per km - fyrir C flokk þurfum við þyngd
             double gjaldPerKm;
+            int thyngd = 0;
             if (flokkur.equals("C")) {
                 String thyngdText = thyngdInput.getText().trim();
                 if (thyngdText.isEmpty()) {
                     error("Sláðu inn þyngd (kg) fyrir flokk C bíla");
                     return;
                 }
-                int thyngd = Integer.parseInt(thyngdText);
+                thyngd = Integer.parseInt(thyngdText);
                 if (thyngd <= 3500) {
                     error("Flokkur C er fyrir bíla yfir 3500 kg. Notaðu B fyrir léttari bíla.");
                     return;
@@ -159,21 +153,22 @@ public class kmGjaldController {
             heildGjald += manGjald;
             fjoldiManada++;
 
-            // Uppfærir output textfields
-            // Mánaðarlega: aðeins þessi mánuður
+            // 5) Bæta í söguna - ListView uppfærist sjálfkrafa því ObservableList
+            kmGjaldManudur ny = new kmGjaldManudur(LocalDate.now(), flokkur, thyngd, upphaf, lokKm, gjaldPerKm);
+            saga.add(0, ny);  // Bæta fremst (nýjasta efst í listanum)
+
+            // 6) Uppfæra output reiti
             manKmOutput.setText(String.format("%,d km / %,.2f kr", manKm, manGjald));
             fjoldiManadaOutput.setText(String.valueOf(fjoldiManada));
-            // Heildarsamtala: allir mánuðir samanlagt
             heildKmOutput.setText(String.format("%,d km / %,.2f kr", heildKm, heildGjald));
 
-            // Reiknar meðalgjald per km yfir alla mánuði
             if (heildKm > 0) {
                 gjaldPerKmOutput.setText(String.format("%.2f", heildGjald / heildKm));
             } else {
                 gjaldPerKmOutput.setText("0.00");
             }
 
-            // Hreinsun inntaka
+            // 7) Hreinsun inntaka (en ekki sögu!)
             flokkurInput.clear();
             thyngdInput.clear();
             upphafsInput.setText("0");
@@ -184,11 +179,9 @@ public class kmGjaldController {
         }
     }
 
-    /** ...
-     *
-     * Takki sem hreinsar öll inntök og úttök og endurstillir innri breytur.
-     *
-    */
+    // ==========================================================================
+    // HREINSA - hreinsar inntök og talnafjölda en EKKI söguna
+    // ==========================================================================
     @FXML
     private void OnHreinsa() {
         flokkurInput.clear();
@@ -211,90 +204,138 @@ public class kmGjaldController {
         heildGjald = 0.00;
         fjoldiManada = 0;
 
-        // Endurstilla þyngdarreitinn - læstur þangað til flokkur C er valinn aftur
         thyngdInput.setDisable(true);
         thyngdInput.setPromptText("Aðeins fyrir flokk C");
+
+        // Athugið: söguna sjálfri er ekki eytt hér
     }
 
+    // ==========================================================================
+    // EYDA SKRÁNING - fjarlægir valda skráningu úr sögu
+    // ==========================================================================
+    @FXML
+    private void OnEyda() {
+        kmGjaldManudur valid = soguListi.getSelectionModel().getSelectedItem();
+        if (valid == null) {
+            error("Veldu skráningu í listanum til að eyða");
+            return;
+        }
 
-    /** ...
-     * Helper methods til að ná í heildarkílometra, heildargreiðslu og fjölda mánaða.
-     * @return gildi.
-    */
+        // Fjarlægja úr lista
+        saga.remove(valid);
 
-    // Helper Methods
-    public int getHeildEknirKm() {
-        return heildKm;
+        // Uppfæra heildartölurnar (draga frá það sem var í þessari skráningu)
+        heildKm -= valid.getEknirKm();
+        heildGjald -= valid.getGjald();
+        fjoldiManada--;
+
+        // Uppfæra reiti
+        endurReiknaSamtala();
     }
 
-    public double getHeildarGreidsla() {
-        return heildGjald;
+    // ==========================================================================
+    // HREINSA SOGU - eyðir öllum skráningum
+    // ==========================================================================
+    @FXML
+    private void OnHreinsaSogu() {
+        if (saga.isEmpty()) {
+            return;  // ekkert að hreinsa
+        }
+
+        // Staðfestingargluggi - viljum ekki eyða óvart!
+        javafx.scene.control.Alert confirm = new javafx.scene.control.Alert(
+                javafx.scene.control.Alert.AlertType.CONFIRMATION);
+        confirm.setTitle("Staðfesta");
+        confirm.setHeaderText(null);
+        confirm.setContentText("Viltu örugglega eyða allri sögu skráninga? Það er ekki hægt að snúa við.");
+        confirm.showAndWait().ifPresent(svar -> {
+            if (svar == javafx.scene.control.ButtonType.OK) {
+                saga.clear();
+                heildKm = 0;
+                heildGjald = 0.00;
+                fjoldiManada = 0;
+                endurReiknaSamtala();
+            }
+        });
     }
 
-    public int getFjoldiManada() {
-        return fjoldiManada;
+    /**
+     * Uppfærir heildar-output reitina út frá núverandi gildum.
+     * Notað eftir að skráningu er eytt eða sögu hreinsuð.
+     */
+    private void endurReiknaSamtala() {
+        fjoldiManadaOutput.setText(String.valueOf(fjoldiManada));
+        heildKmOutput.setText(String.format("%,d km / %,.2f kr", heildKm, heildGjald));
+        if (heildKm > 0) {
+            gjaldPerKmOutput.setText(String.format("%.2f", heildGjald / heildKm));
+        } else {
+            gjaldPerKmOutput.setText("0.00");
+        }
+        // Núllstilla "þessi mánuður" þar sem það á ekki lengur við
+        manKmOutput.setText("0");
     }
+
+    // ==========================================================================
+    // GETTERS
+    // ==========================================================================
+    public int getHeildEknirKm()       { return heildKm; }
+    public double getHeildarGreidsla() { return heildGjald; }
+    public int getFjoldiManada()       { return fjoldiManada; }
+    public ObservableList<kmGjaldManudur> getSaga() { return saga; }
+
+    // ==========================================================================
+    // GJALDA FALL
+    // ==========================================================================
 
     /**
      * Skilar gjaldi per km fyrir flokk A eða B (föst gjöld).
      * Fyrir flokk C, notaðu gjaldFyrirThyngd() í staðinn.
-     * @param flokkur "A", "B" eða "C"
-     * @return gjald per km, eða 0 ef flokkur er ógildur
      */
     public double gjaldFyrirFlokk(String flokkur) {
-        if (flokkur.equals("A")) return 4.15;   // mótorhjól / vespur
-        if (flokkur.equals("B")) return 6.95;   // almennir bílar ≤3500 kg
-        if (flokkur.equals("C")) return 9.85;   // sjálfgefið C-gjald (lægsta þrep)
+        if (flokkur.equals("A")) return 4.15;
+        if (flokkur.equals("B")) return 6.95;
+        if (flokkur.equals("C")) return 9.85;
         return 0;
     }
 
-    /**
-     * Athugar hvort flokkur sé löglegur (A, B, eða C).
-     * @param flokkur strengur frá notanda
-     * @return true ef löglegur, annars false
-     */
     public boolean erLoglegurFlokkur(String flokkur) {
         return flokkur.equals("A") || flokkur.equals("B") || flokkur.equals("C");
     }
 
     /**
      * Skilar km-gjaldi fyrir flokk C bíla eftir þyngd (kg).
-     * Tafla byggð á íslenskum kílómetragjöldum:
+     * Tafla byggð á íslenskum kílómetragjöldum (sjá island.is/kilometragjald):
      *   3501 –  5000 kg : 9.85  kr/km
      *   5001 –  6000 kg : 10.44 kr/km
      *   6001 –  7000 kg : 11.06 kr/km
      *   7001 –  8000 kg : 11.73 kr/km
      *   8001 –  9000 kg : 12.43 kr/km
      *   9001 – 10000 kg : 13.18 kr/km
-     *
-     * @param thyngd heildarþyngd bíls í kg
-     * @return gjald per km
      */
     public double gjaldFyrirThyngd(int thyngd) {
-        if (thyngd <= 3500)  return 0;     // utan C-flokks (þetta er B)
+        if (thyngd <= 3500)  return 0;
         if (thyngd <= 5000)  return 9.85;
         if (thyngd <= 6000)  return 10.44;
         if (thyngd <= 7000)  return 11.06;
         if (thyngd <= 8000)  return 11.73;
         if (thyngd <= 9000)  return 12.43;
         if (thyngd <= 10000) return 13.18;
-        return 0; // utan taxta
+        return 0;
     }
 
-    // Backward-compatible: gamla nafnið
     public double getGjaldKilometra(String flokkur) {
         return gjaldFyrirFlokk(flokkur);
     }
 
-    /** ...
+    /**
      * Basic error controller sem keyrir alert glugga með villumeldingu.
-    */
+     */
     private void error(String message) {
-        javafx.scene.control.Alert alert = new javafx.scene.control.Alert(javafx.scene.control.Alert.AlertType.ERROR);
+        javafx.scene.control.Alert alert = new javafx.scene.control.Alert(
+                javafx.scene.control.Alert.AlertType.ERROR);
         alert.setTitle("Villa");
         alert.setHeaderText(null);
         alert.setContentText(message);
         alert.showAndWait();
     }
-
 }
