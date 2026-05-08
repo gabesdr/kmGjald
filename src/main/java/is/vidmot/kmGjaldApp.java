@@ -20,6 +20,8 @@ public class kmGjaldApp extends Application {
         Scene scene = new Scene(fxmlLoader.load(), 600, 400);
         stage.setTitle("Reiknivél fyrir Kílometrargjald");
         stage.setScene(scene);
+        stage.setMinWidth(960);
+        stage.setMinHeight(520);
         stage.show();
     }
 
