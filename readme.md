@@ -24,7 +24,6 @@ Gjaldatöflur eru byggðar á opinberum upplýsingum frá [island.is/kilometragj
 - **Þrír þyngdarflokkar** (A, B, C) með mismunandi gjaldskrá
 - **Þyngdarháð gjald** fyrir flokk C (3.501 – 10.000 kg)
 - **Söguskráning** sem heldur utan um allar skráningar
-- **Eyðing** á einstökum skráningum eða allri sögu (með staðfestingu)
 - **Heildaryfirlit** yfir ekna kílómetra, fjölda mánaða og meðalgjald á km
 - **Sjálfvirk villumeðhöndlun** fyrir ógild inntak (neikvæðar tölur, rangir flokkar, o.fl.)
 
