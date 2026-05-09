@@ -5,6 +5,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 import java.io.IOException;
+import javafx.scene.image.Image;
 
 
 /** ...
@@ -20,6 +21,7 @@ public class kmGjaldApp extends Application {
         Scene scene = new Scene(fxmlLoader.load(), 960, 520);
         stage.setTitle("Reiknivél fyrir Kílometrargjald");
         stage.setScene(scene);
+        stage.getIcons().add(new Image(kmGjaldApp.class.getResourceAsStream("icon.png")));
         stage.setResizable(false); // Það er ekki hægt að stilla stærðinni.
         stage.show();
     }
