@@ -31,9 +31,9 @@ Gjaldatöflur eru byggðar á opinberum upplýsingum frá [island.is/kilometragj
 
 ## Heimildir
 
-- [island.is/kilometragjald](https://island.is/kilometragjald) — opinberar upplýsingar um kílómetragjöld
-- JavaFX 25 documentation — [openjfx.io](https://openjfx.io)
-- [Meter Icons by meaicon](https://www.flaticon.com/free-icons/meter)
+- [island.is/kilometragjald](https://island.is/kilometragjald)
+- [openjfx.io](https://openjfx.io)
+- [Tax-calculate icons created by Marz Gallery - Flaticon](https://www.flaticon.com/free-icons/tax-calculate)
 
 ---
 
