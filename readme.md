@@ -3,7 +3,7 @@
 > JavaFX-forrit til að halda utan um kílómetraakstur og reikna út íslenskt kílómetragjald.
 
 ![Maven](https://img.shields.io/badge/Maven-build-orange)
-![Java](https://img.shields.io/badge/Java-25-blue)
+![Java](https://img.shields.io/badge/Java-21-blue)
 ![JavaFX](https://img.shields.io/badge/JavaFX-21.0.6-green)
 ![Version](https://img.shields.io/badge/Version-1.0--SNAPSHOT-red)
 
