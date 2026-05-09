@@ -7,7 +7,13 @@ import javafx.scene.control.Button;
 import javafx.scene.control.ListView;
 import javafx.scene.control.TextField;
 
+import java.io.IOException;
+import java.nio.charset.StandardCharsets;
+import java.nio.file.Files;
+import java.nio.file.Path;
 import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Controller klasi fyrir KmGjaldView.fxml
@@ -46,6 +52,10 @@ public class kmGjaldController {
 
     // ---------- FXML history panel ----------
     @FXML private ListView<kmGjaldManudur> soguListi;
+
+    // ---------- Persistence ----------
+    private static final Path SAVE_FILE = Path.of(
+            System.getProperty("user.home"), ".kmgjald", "saga.csv");
 
     // ---------- Internal state ----------
     private int heildKm = 0;
@@ -90,6 +100,9 @@ public class kmGjaldController {
 
         // Tengja söguna við ListView - allt sem við bætum við "saga" birtist sjálfkrafa
         soguListi.setItems(saga);
+
+        // Hlaða vistaðar skráningar frá fyrri keyrslu
+        loadSaga();
     }
 
     // ==========================================================================
@@ -174,6 +187,9 @@ public class kmGjaldController {
             upphafsInput.setText("0");
             lokKmInput.setText("0");
 
+            // 8) Vista saga á disk
+            saveSaga();
+
         } catch (NumberFormatException e) {
             error("Ógilt inntak - sláðu inn tölur í km og þyngd reitina");
         }
@@ -231,6 +247,7 @@ public class kmGjaldController {
 
         // Uppfæra reiti
         endurReiknaSamtala();
+        saveSaga();
     }
 
     // ==========================================================================
@@ -255,6 +272,7 @@ public class kmGjaldController {
                 heildGjald = 0.00;
                 fjoldiManada = 0;
                 endurReiknaSamtala();
+                saveSaga();
             }
         });
     }
@@ -325,6 +343,66 @@ public class kmGjaldController {
 
     public double getGjaldKilometra(String flokkur) {
         return gjaldFyrirFlokk(flokkur);
+    }
+
+    // ==========================================================================
+    // PERSISTENCE - vista og hlaða saga
+    // ==========================================================================
+
+    /**
+     * Vistar alla skráningar í CSV skrá: ~/.kmgjald/saga.csv
+     * Hvert lína: dagsetning,flokkur,thyngd,upphaf,lokKm,gjaldPerKm
+     */
+    private void saveSaga() {
+        try {
+            Files.createDirectories(SAVE_FILE.getParent());
+            List<String> lines = new ArrayList<>();
+            for (kmGjaldManudur m : saga) {
+                lines.add(String.join(",",
+                        m.getDagsetning().toString(),
+                        m.getFlokkur(),
+                        String.valueOf(m.getThyngd()),
+                        String.valueOf(m.getUpphaf()),
+                        String.valueOf(m.getLokKm()),
+                        String.valueOf(m.getGjaldPerKm())
+                ));
+            }
+            Files.write(SAVE_FILE, lines, StandardCharsets.UTF_8);
+        } catch (IOException e) {
+            // Gögn eru í minni - keyrsla heldur áfram þótt vista takist ekki
+        }
+    }
+
+    /**
+     * Hleður vistaðar skráningar úr CSV skrá við ræsingu.
+     * Ef skráin er ekki til (fyrsta keyrsla) eða er skemmd, byrjum við ferskt.
+     */
+    private void loadSaga() {
+        if (!Files.exists(SAVE_FILE)) return;
+        try {
+            List<String> lines = Files.readAllLines(SAVE_FILE, StandardCharsets.UTF_8);
+            for (String line : lines) {
+                if (line.isBlank()) continue;
+                String[] parts = line.split(",");
+                if (parts.length != 6) continue;
+                LocalDate dagsetning = LocalDate.parse(parts[0]);
+                String flokkur = parts[1];
+                int thyngd = Integer.parseInt(parts[2]);
+                int upphaf = Integer.parseInt(parts[3]);
+                int lokKm = Integer.parseInt(parts[4]);
+                double gjaldPerKm = Double.parseDouble(parts[5]);
+                kmGjaldManudur m = new kmGjaldManudur(dagsetning, flokkur, thyngd, upphaf, lokKm, gjaldPerKm);
+                saga.add(m);
+                heildKm += m.getEknirKm();
+                heildGjald += m.getGjald();
+                fjoldiManada++;
+            }
+            if (!saga.isEmpty()) {
+                endurReiknaSamtala();
+            }
+        } catch (IOException | NumberFormatException e) {
+            // Skrá er skemmd - byrjum ferskt (gömlu gögnin eru enn á disk)
+        }
     }
 
     /**
